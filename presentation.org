@@ -1,0 +1,146 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
+#+AUTHOR: Dan Čermák
+#+DATE: 19.6.2021
+#+EMAIL: dcermak@suse.com
+#+TITLE: LSP for Salt States
+#+SUBTITLE: Building a Language Server
+
+#+REVEAL_ROOT: node_modules/reveal.js/
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (highlight notes history)
+#+OPTIONS: toc:nil
+#+REVEAL_DEFAULT_FRAG_STYLE: appear
+#+REVEAL_INIT_OPTIONS: transition: 'none', hash: true
+#+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: node_modules/@fortawesome/fontawesome-free/css/all.min.css
+#+REVEAL_HIGHLIGHT_CSS: node_modules/reveal.js/plugin/highlight/zenburn.css
+
+#+REVEAL_TITLE_SLIDE: <h2 class="title"><img src="./media/SaltProject_Logomark_black.png" height="80px" style="margin-bottom:-10px"/> %t</h2>
+#+REVEAL_TITLE_SLIDE: <p class="subtitle" style="color: Gray;">%s</p>
+#+REVEAL_TITLE_SLIDE: <p class="author">%a</p>
+#+REVEAL_TITLE_SLIDE: <img src="media/osc21.png" height="150px"/>
+#+REVEAL_TITLE_SLIDE: <p xmlns:cc="http://creativecommons.org/ns#" >This work is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+#+REVEAL_TITLE_SLIDE: CC BY SA 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i> <i class="fab fa-creative-commons-sa"></i></a></p>
+# #+REVEAL_TITLE_SLIDE: <p class="date">%d</p><p class="author">%a</p>
+
+* who -u
+
+Dan Čermák
+
+#+REVEAL_HTML: <p style="text-align:left">
+#+REVEAL_HTML: <ul>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-suse"></i> Software Developer @SUSE</li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-fedora"></i> FESCO, i3 SIG, Package Maintainer</li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-suse"></i> Package Maintainer</li>
+#+REVEAL_HTML: <li style="list-style-type:none;">&nbsp</li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-github"></i> <a href="https://github.com/D4N/">D4N</a> / <a href="https://github.com/dcermak/">dcermak</a></li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-mastodon"></i> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></li>
+#+REVEAL_HTML: <li style="list-style-type:none;"><i class="fab fa-twitter"></i> <a href="https://twitter.com/DefolosDC/">@DefolosDC</a></li>
+#+REVEAL_HTML: </ul>
+
+
+* What is the Language Server Protocol?
+
+  [[https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png]]
+
+
+* What is Salt Stack?
+
+  #+begin_notes
+  - agentless or centralized
+  - heart of Uyuni/SUSE Manager
+  #+end_notes
+
+  #+ATTR_REVEAL: :frag (appear)
+  - configuration management software
+  - uses Salt States to apply desired state
+  - mix of Jinja2 and YAML
+
+    #+begin_src yaml
+    mysql:
+      pkg.installed:
+        - name: mysql
+      service.running:
+        - name: mysql
+
+    web_server:
+      pkg.installed:
+    {% if grains['os_family'] == 'RedHat' %}
+        - name: httpd
+    {% elif grains['os_family'] == 'Debian' %}
+        - name: apache2
+    {% endif %}
+    #+end_src
+
+* Why and When?
+
+  #+begin_notes
+  - config management is becoming as complicated as coding but without all the editor/IDE support
+  - existing solutions don't offer context aware completion & information
+  - existing solutions only exist for single editors
+  #+end_notes
+
+  #+ATTR_REVEAL: :frag (appear)
+  - Editor support lacking
+  - Initial prototype developed during [[https://hackweek.suse.com/projects/language-server-protocol-implementation-for-salt-states][Hackweek 20]] by [[http://bosdonnat.fr/][Cédric Bosdonnat]] and [[https://twitter.com/defolosdc][Dan Čermák]]
+
+* Demo
+
+  #+begin_notes
+  - state name completion
+  - documentation of completion
+  - jump to state ids
+  #+end_notes
+
+
+* Challenges
+
+  #+ATTR_REVEAL: :frag (appear)
+  - Parsing potentially invalid YAML
+   #+begin_src yaml
+   /root/.bashrc: { file.managed: [ }
+   #+end_src
+
+  - Meaningful testing
+  - Jinja2 interpretation before YAML
+    #+begin_src yaml
+     workstation.packages:
+       pkg.installed:
+         - emacs
+     {% if grains['os_family'] == 'RedHat' %}
+         - name: selinux-policy
+     {% endif %}
+    #+end_src
+
+
+* Outlook
+
+  #+ATTR_REVEAL: :frag (appear)
+  - Currently only a side project
+  - Jinja2 parsing needs to be implemented
+  - potential additional features:
+    - show documentation
+    - salt-lint integration
+    - autocomplete in more places
+    - jump to references
+
+
+* Links
+
+  - @@html: <i class="fab fa-github"></i>@@ [[https://github.com/dcermak/salt-lsp][dcermak/salt-lsp]]
+  - [[http://bosdonnat.fr/hackweek-lsp.html][Hackweek project summary from Cédric]]
+  - [[https://microsoft.github.io/language-server-protocol/][LSP specifications]]
+
+* Legal
+
+  - [[https://raw.githubusercontent.com/openSUSE/artwork/e2c20d9b0ade6dffa01303cb29b8c267cdf4f375/logos/events/osc21.png][oSVC21 Logo]] CC-BY-SA 3.0
+  - [[https://revealjs.com/][reveal.js]] MIT
+  - [[https://fontawesome.com/][Font Awesome]] CC-BY-4.0 and SIL OFL 1.1 and MIT
+  - [[https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png][lsp-language-editors.png]] \copy Microsoft
+  - [[https://gitlab.com/saltstack/open/salt-branding-guide/-/blob/master/logos/SaltProject_Logomark_black.png][Salt project logo]] Apache-2.0
+
+
+* Questions?
+
+  #+ATTR_REVEAL: :frag appear :frag_idx 1
+  *Answers!*

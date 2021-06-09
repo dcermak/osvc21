@@ -1,0 +1,12 @@
+{
+  "name": "salt-lsp-presentation",
+  "version": "0.0.1",
+  "description": "Presentation of the Salt LSP server for oSVC21",
+  "repository": "https://github.com/dcermak/osvc21",
+  "author": "Dan Čermák <dcermak@suse.com>",
+  "license": "CC-BY-SA-4.0",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15",
+    "reveal.js": "^4.1"
+  }
+}
