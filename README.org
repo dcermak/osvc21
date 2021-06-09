@@ -1,0 +1,3 @@
+* oSVC21
+
+  This repository containes the presentation of the Salt LSP server for [[https://events.opensuse.org/conferences/oSVC21/program/proposals/3562][oSVC21]]
