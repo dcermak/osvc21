@@ -64,7 +64,7 @@ Dan Čermák
 
   #+ATTR_REVEAL: :frag (appear)
   - configuration management software
-  - uses Salt States to apply desired state
+  - /Salt States/ apply desired state
   - mix of Jinja2 and YAML
 
     #+begin_src yaml
