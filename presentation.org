@@ -84,6 +84,18 @@ Dan Čermák
   - Editor support lacking
   - Initial prototype developed during [[https://hackweek.suse.com/projects/language-server-protocol-implementation-for-salt-states][Hackweek 20]] by [[http://bosdonnat.fr/][Cédric Bosdonnat]] and [[https://twitter.com/defolosdc][Dan Čermák]]
 
+* Architecture
+
+  #+Attr_reveal: :frag (appear)
+  - Language Server:
+    - LSP protocol via [[https://github.com/openlawlibrary/pygls][pygls]]
+    - YAML parsing using [[https://pyyaml.org/][PyYAML]]'s scanner & custom state machine
+    - future: [[https://jinja.palletsprojects.com/][Jinja]] for preprocessing
+  - Clients:
+    - VSCode using [[https://www.npmjs.com/package/vscode-languageclient][vscode-languageclient]]
+    - Emacs using [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]] or [[https://github.com/joaotavora/eglot][eglot]]
+
+
 * Demo
 
   #+begin_notes
