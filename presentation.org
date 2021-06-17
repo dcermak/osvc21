@@ -39,6 +39,17 @@ Dan Čermák
 #+REVEAL_HTML: </ul>
 
 
+* Outline
+
+  - [[What is the Language Server Protocol?][What is the Language Server Protocol?]]
+  - [[What is Salt Stack?][What is Salt Stack?]]
+  - [[Why and When?][Why and When?]]
+  - [[Architecture][Architecture]]
+  - [[Demo][Demo]]
+  - [[Challenges][Challenges]]
+  - [[Outlook][Outlook]]
+
+
 * What is the Language Server Protocol?
 
   [[https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png]]
