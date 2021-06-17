@@ -140,7 +140,9 @@ Dan Čermák
 * Links
 
   - @@html: <i class="fab fa-github"></i>@@ [[https://github.com/dcermak/salt-lsp][dcermak/salt-lsp]]
+  - [[https://marketplace.visualstudio.com/items?itemName=dancermak.salt-lsp][VSCode Client]]
   - [[http://bosdonnat.fr/hackweek-lsp.html][Hackweek project summary from Cédric]]
+  - slides: @@html: <i class="fab fa-github"></i>@@ [[https://github.com/dcermak/osvc21][dcermak/osvc21]]
   - [[https://microsoft.github.io/language-server-protocol/][LSP specifications]]
 
 * Legal
